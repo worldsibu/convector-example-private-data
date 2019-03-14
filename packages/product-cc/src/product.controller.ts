@@ -16,7 +16,7 @@ export class ProductController extends ConvectorController<ChaincodeTx> {
   public async initMarble(): Promise<any> {
     let transMap = this.tx.stub.getStub().getTransient();
 
-    let strData = transMap.get('marble').toString('utf8')
+    let strData = transMap.get('marble').toString('utf8');
     let req: marbleTransientInput = new marbleTransientInput(JSON.parse(strData));
 
     console.log(req.toJSON());
@@ -37,7 +37,7 @@ export class ProductController extends ConvectorController<ChaincodeTx> {
 
     // await this.tx.stub.getStub().putPrivateData('collectionMarbles', req.name, Buffer.from(JSON.stringify(col1Data)));
 
-    await this.tx.stub.putState(col1Data.name, col1Data, {
+    await this.tx.stub.putState(col1Data.name, col1Data.toJSON(), {
       privateCollection: 'collectionMarbles'
     });
 
@@ -47,17 +47,17 @@ export class ProductController extends ConvectorController<ChaincodeTx> {
       price: req.price
     });
 
-    await this.tx.stub.putState(col2Data.name, col2Data, {
+    await this.tx.stub.putState(col2Data.name, col2Data.toJSON(), {
       privateCollection: 'collectionMarblePrivateDetails'
     });
     // await this.tx.stub.getStub().putPrivateData('collectionMarblePrivateDetails', req.name, Buffer.from(JSON.stringify(col2Data)));
   }
   @Invokable()
   public async readMarble(@Param(yup.string()) id: string): Promise<any> {
-    return this.tx.stub.getStub().getPrivateData('collectionMarbles', id);
+    return this.tx.stub.getStateAsObject(id, { privateCollection: 'collectionMarbles' });
   }
   @Invokable()
   public async readMarblePrivateDetails(@Param(yup.string()) id: string): Promise<any> {
-    return this.tx.stub.getStub().getPrivateData('collectionMarblePrivateDetails', id);
+    return this.tx.stub.getStateAsObject(id, { privateCollection: 'collectionMarblePrivateDetails' });
   }
 }
