@@ -10,6 +10,7 @@
     "build": "node ./update-paths.js",
     "env:restart": "hurl new",
     "test": "npm-run-all -s lerna:test",
+    "test:e2e": "npm-run-all -s lerna:test:e2e",
     "env:clean": "hurl clean",
     "cc:start": "f() { npm run cc:package -- $1 org1; npm run cc:install $1; }; f",
     "cc:upgrade": "f() { npm run cc:package -- $1 org1; hurl upgrade $1 node $2  -P ./chaincode-$1; }; f",
@@ -17,13 +18,15 @@
     "lerna:install": "lerna bootstrap",
     "lerna:build": "lerna run build",
     "cc:package": "f() { npm run lerna:build; chaincode-manager --config ./$2.$1.config.json --output ./chaincode-$1 package; }; f",
-    "cc:install": "f() { hurl install $1 node -P ./chaincode-$1; }; f",
-    "lerna:test": "lerna exec npm run test"
+    "cc:install": "f() { hurl install $1 node -P ./chaincode-$1 --collections-config ./collections.json; }; f",
+    "lerna:test": "lerna exec npm -- run test",
+    "lerna:test:e2e": "lerna exec npm -- run test:e2e"
   },
   "devDependencies": {
     "lerna": "^3.13.0",
-    "@worldsibu/convector-adapter-mock": "1.2.1-0-alpha.d00d4639",
-    "@worldsibu/convector-platform-fabric": "1.2.1-0-alpha.d00d4639",
+    "@worldsibu/convector-adapter-mock": "1.2.1-0-alpha.1624740f",
+    "@worldsibu/convector-platform-fabric": "1.2.1-0-alpha.1624740f",
+    "@worldsibu/hurley": "0.5.1-alpha.615c5b4",
     "fabric-ca-client": "~1.4.0",
     "fabric-client": "~1.4.0",
     "npm-run-all": "^4.1.5"

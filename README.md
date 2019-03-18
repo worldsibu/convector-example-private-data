@@ -2,7 +2,15 @@
 
 Example based on fabric's private data marbles
 
-Test it:
+Run the end-2-end test:
+
+```bash
+npm run env:restart
+npm run cc:start -- product
+npm run test:e2e
+```
+
+Test it with Hurley:
 
 ```bash
 hurl new

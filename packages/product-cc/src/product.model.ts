@@ -5,9 +5,9 @@ import {
   ReadOnly,
   Required,
   Validate
-} from '@worldsibu/convector-core-model';
+} from '@worldsibu/convector-core';
 
-export class marbleTransientInput extends ConvectorModel<marbleTransientInput> {
+export class MarbleTransientInput extends ConvectorModel<MarbleTransientInput> {
   @ReadOnly()
   @Required()
   public readonly type = 'marbleTransientInput';
@@ -23,7 +23,8 @@ export class marbleTransientInput extends ConvectorModel<marbleTransientInput> {
   @Validate(yup.number())
   price: number;
 }
-export class marble extends ConvectorModel<marble> {
+
+export class Marble extends ConvectorModel<Marble> {
   @ReadOnly()
   @Required()
   public readonly type = 'marble';
@@ -37,7 +38,8 @@ export class marble extends ConvectorModel<marble> {
   @Validate(yup.number())
   size: number;
 }
-export class marblePrivateDetails extends ConvectorModel<marblePrivateDetails> {
+
+export class MarblePrivateDetails extends ConvectorModel<MarblePrivateDetails> {
   @ReadOnly()
   @Required()
   public readonly type = 'marble';
